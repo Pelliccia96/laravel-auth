@@ -45,7 +45,7 @@
         </div>
     </div>
     {{-- Tabella Progetti --}}
-    <div class="card mb-5">
+    <div class="card mb-3">
         <div class="card-body">
             <table class="table">
             <thead>
@@ -70,6 +70,9 @@
             </tbody>
             </table>
         </div>
+    </div>
+    <div>
+        <a href="{{ route('create') }}"><button class="btn btn-secondary fw-semibold mx-3">&plus; Add New Project</button></a>
     </div>
 </div>
 @endsection

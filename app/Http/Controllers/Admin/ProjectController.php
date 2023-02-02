@@ -35,7 +35,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        $title = "CREA NUOVO PROGETTO";
+
+        return view("admin.create", compact('title'));
     }
 
     /**
@@ -46,7 +48,19 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // validated() usa le regole indicate nella funzione rules dello StorePostRequest e ci ritorna i dati validati
+        // $data = $request->validated();
+        
+        $project = $request->all();
+
+        $project = new Project();
+        $project->string('name');
+        $project->string('description');
+        $project->string('cover_img');
+        $project->string('github_link');
+        $project->save();
+
+        return redirect()->route('show', $project->id);
     }
 
     /**
@@ -57,7 +71,9 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $project = Project::findOrFail($id);
+
+        return view('show', compact('project'));
     }
 
     /**
