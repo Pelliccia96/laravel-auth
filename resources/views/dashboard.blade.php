@@ -66,7 +66,7 @@
                     <td>{{ $project->description }}</td>
                     <td>{{ $project->cover_img }}</td>
                     <td>{{ $project->github_link }}</td>
-                    <td><a href="{{ route('show', $project->id) }}" class="text-decoration-none fw-semibold">Show</a></td>
+                    <td><a href="{{ route('show', $project->id) }}" class="text-decoration-none fw-semibold">Show #{{ $project->id }}</a></td>
                 </tr>
                 @endforeach
             </tbody>
