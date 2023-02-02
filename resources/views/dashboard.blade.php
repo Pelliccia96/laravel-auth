@@ -19,7 +19,33 @@
             </div>
         </div>
     </div>
-    <div class="card">
+    {{-- Tabella Users --}}
+    <div class="card mb-5">
+        <div class="card-body">
+            <table class="table">
+            <thead>
+                <tr>
+                <th>ID</th>
+                <th>Nome e Cognome</th>
+                <th>Email</th>
+                <th>Creato il</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                <tr>
+                    <td>{{ $user->id }}</td>
+                    <td>{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>{{ $user->created_at }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+            </table>
+        </div>
+    </div>
+    {{-- Tabella Progetti --}}
+    <div class="card mb-5">
         <div class="card-body">
             <table class="table">
             <thead>
@@ -32,13 +58,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($projects as $project)
                 <tr>
-                    <td>{{ $user->id }}</td>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->description }}</td>
-                    <td>{{ $user->cover_img }}</td>
-                    <td>{{ $user->github_link }}</td>
+                    <td>{{ $project->id }}</td>
+                    <td>{{ $project->name }}</td>
+                    <td>{{ $project->description }}</td>
+                    <td>{{ $project->cover_img }}</td>
+                    <td>{{ $project->github_link }}</td>
                 </tr>
                 @endforeach
             </tbody>
