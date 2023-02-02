@@ -51,13 +51,13 @@ class ProjectController extends Controller
         // validated() usa le regole indicate nella funzione rules dello StorePostRequest e ci ritorna i dati validati
         // $data = $request->validated();
         
-        $project = $request->all();
+        $data = $request->all();
 
         $project = new Project();
-        $project->string('name');
-        $project->string('description');
-        $project->string('cover_img');
-        $project->string('github_link');
+        $project->name = $data['name'];
+        $project->description = $data['description'];
+        $project->cover_img = $data['cover_img'];
+        $project->github_link = $data['github_link'];
         $project->save();
 
         return redirect()->route('show', $project->id);
@@ -73,7 +73,7 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
 
-        return view('show', compact('project'));
+        return view('admin.show', compact('project'));
     }
 
     /**

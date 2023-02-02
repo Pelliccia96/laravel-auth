@@ -28,7 +28,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ProjectController::class, 'index'])->name('dashboard');
     Route::get('/create', [ProjectController::class, 'create'])->name('create');
     Route::post('/store', [ProjectController::class, 'store'])->name('store');
-    Route::get('/show', [ProjectController::class, 'show'])->name('show');
+    Route::get('/show/{project}', [ProjectController::class, 'show'])->name('show');
 });
 
 Route::middleware('auth')->group(function () {
