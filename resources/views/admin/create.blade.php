@@ -18,7 +18,7 @@
     </div>
     @endif
     <div>
-        <form action="{{ route('store') }}" method="POST" class="p-5">
+        <form action="{{ route('projects.store') }}" method="POST" class="p-5">
             @csrf
 
             <label class="form-label">Title: </label>
@@ -62,7 +62,7 @@
             </div>
         </form>
         <div class="text-center">
-            <a href="{{route("dashboard")}}"><button class="btn btn-secondary">Back to Dashboard</button></a>
+            <a href="{{route("projects.index")}}"><button class="btn btn-secondary">Back to Home</button></a>
         </div>
     </div>
 </div>

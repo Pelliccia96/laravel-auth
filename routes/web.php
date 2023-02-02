@@ -20,18 +20,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-/* Route::get('/dashboard', function () {
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard'); */
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::resource('projects', ProjectController::class);
+
+/* Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ProjectController::class, 'index'])->name('dashboard');
     Route::get('/create', [ProjectController::class, 'create'])->name('create');
-    Route::post('/store', [ProjectController::class, 'store'])->name('store');
     Route::get('/show/{project}', [ProjectController::class, 'show'])->name('show');
-});
-
-// Route::resource('admin', MovieController::class)->middleware(['auth','verified']);
+    Route::post('/store', [ProjectController::class, 'store'])->name('store');
+    Route::get('/edit/{project}', [ProjectController::class, 'edit'])->name('edit');
+    Route::put('/admin/{project}', [ProjectController::class, 'update'])->name('update');
+    Route::delete("/{project}", [ProjectController::class, "destroy"])->name("destroy");
+}); */
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

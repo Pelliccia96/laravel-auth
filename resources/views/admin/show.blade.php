@@ -29,6 +29,6 @@
     </div>
 </div>
 <div class="text-center mt-5">
-    <a href="{{route("dashboard")}}"><button class="btn btn-secondary fw-semibold">Back to Dashboard</button></a>
+    <a href="{{route("projects.index")}}"><button class="btn btn-secondary fw-semibold">Back to Home</button></a>
 </div>
 @endsection

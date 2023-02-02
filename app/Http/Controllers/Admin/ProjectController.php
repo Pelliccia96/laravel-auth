@@ -22,10 +22,7 @@ class ProjectController extends Controller
 
         $projects = Project::all();
 
-        return view("dashboard", [
-            "users" => $users,
-            "projects" => $projects,
-        ]);
+        return view("admin.index", compact('users', 'projects'));
     }
 
     /**
@@ -60,7 +57,7 @@ class ProjectController extends Controller
         $project->github_link = $data['github_link'];
         $project->save();
 
-        return redirect()->route('show', $project->id);
+        return redirect()->route('projects.show', $project->id);
     }
 
     /**
@@ -69,9 +66,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        $project = Project::findOrFail($id);
+        // $project = Project::findOrFail($id);
 
         return view('admin.show', compact('project'));
     }
@@ -82,9 +79,11 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        // $project = Project::findOrFail($id);
+
+        return view('admin.edit', compact('project'));
     }
 
     /**
@@ -94,9 +93,17 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        // validated() usa le regole indicate nella funzione rules dell'UpdatePostRequest e ci ritorna i dati validati
+        // $data = $request->validated();
+
+        $data = $request->all();
+
+        // $project = Project::findOrFail($id);
+        $project->update($data);
+
+        return redirect()->route('projects.index', $project->id);
     }
 
     /**
@@ -107,6 +114,10 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::findOrFail($id);
+        
+        $project->delete();
+
+        return redirect()->route("projects.index");
     }
 }
