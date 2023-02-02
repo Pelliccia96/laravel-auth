@@ -55,6 +55,7 @@
                 <th>Descrizione</th>
                 <th>Immagine</th>
                 <th>GitHub</th>
+                <th>INFO</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,6 +66,7 @@
                     <td>{{ $project->description }}</td>
                     <td>{{ $project->cover_img }}</td>
                     <td>{{ $project->github_link }}</td>
+                    <td><a href="{{ route('show', $project->id) }}" class="text-decoration-none fw-semibold">Show</a></td>
                 </tr>
                 @endforeach
             </tbody>
