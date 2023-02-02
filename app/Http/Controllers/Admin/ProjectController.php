@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\User;
@@ -43,12 +45,12 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
         // validated() usa le regole indicate nella funzione rules dello StorePostRequest e ci ritorna i dati validati
-        // $data = $request->validated();
+        $data = $request->validated();
         
-        $data = $request->all();
+        // $data = $request->all();
 
         $project = new Project();
         $project->name = $data['name'];
@@ -93,17 +95,17 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
         // validated() usa le regole indicate nella funzione rules dell'UpdatePostRequest e ci ritorna i dati validati
-        // $data = $request->validated();
+        $data = $request->validated();
 
-        $data = $request->all();
+        // $data = $request->all();
 
         // $project = Project::findOrFail($id);
         $project->update($data);
 
-        return redirect()->route('projects.index', $project->id);
+        return redirect()->route('projects.show', $project->id);
     }
 
     /**

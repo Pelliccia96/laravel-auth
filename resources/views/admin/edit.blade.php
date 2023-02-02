@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div>
+<div class="container my-5">
     <div class="text-center pt-2 mt-4">
         <h1 class="text-dark">MODIFICA PROGETTO #{{ $project->id }}</h1>
     </div>
