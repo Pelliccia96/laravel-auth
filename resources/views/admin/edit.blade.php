@@ -40,8 +40,7 @@
             @enderror
 
             <label class="form-label">Image: </label>
-            <input type="text" name="cover_img" class="form-control mb-4 @error('cover_img') is-invalid @enderror" placeholder="url"
-            value="{{ $errors->has('cover_img') ? '' : $project->cover_img }}">
+            <input type="file" name="cover_img" class="form-control mb-4 @error('cover_img') is-invalid @enderror" enctype="multipart/form-data">
             @error('cover_img')
             <div class="invalid-feedback">
                 {{ $message }}

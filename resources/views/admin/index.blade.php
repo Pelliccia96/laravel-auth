@@ -66,7 +66,9 @@
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->name }}</td>
                     <td>{{ $project->description }}</td>
-                    <td>{{ $project->cover_img }}</td>
+                    <td>
+                        <img src="{{ asset('/storage/' . $project['cover_img']) }}">
+                    </td>
                     <td>{{ $project->github_link }}</td>
                     <td><a href="{{ route('projects.show', $project->id) }}" class="text-decoration-none fw-semibold">Show #{{ $project->id }}</a></td>
                     <td><a href="{{ route('projects.edit', $project->id) }}" class="text-decoration-none fw-semibold">Edit #{{ $project->id }}</a></td>

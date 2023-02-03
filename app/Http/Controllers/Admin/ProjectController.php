@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -52,10 +53,22 @@ class ProjectController extends Controller
         
         // $data = $request->all();
 
+        // Salviamo il file nello storage e recuperiamo il path
+        $path = Storage::put("posts", $data["cover_img"]);
+
+        // carico il file solo se ne ricevo uno
+        if (key_exists("cover_img", $data)) {
+            // salvo in una variabile temporanea il percorso del nuovo file
+            $path = Storage::put("posts", $data["cover_img"]);
+            // Dopo aver caricato la nuova immagine, prima di aggiornare il db,
+            // cancelliamo dallo storage il vecchio file.
+            Storage::delete($data->cover_img);
+        }
+
         $project = new Project();
         $project->name = $data['name'];
         $project->description = $data['description'];
-        $project->cover_img = $data['cover_img'];
+        $project->cover_img = $path;
         $project->github_link = $data['github_link'];
         $project->save();
 
@@ -117,7 +130,11 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::findOrFail($id);
-        
+    
+        if ($project->cover_img) {
+            Storage::delete($project->cover_img);
+        }
+    
         $project->delete();
 
         return redirect()->route("projects.index");
