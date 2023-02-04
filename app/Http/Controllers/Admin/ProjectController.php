@@ -54,22 +54,16 @@ class ProjectController extends Controller
         // $data = $request->all();
 
         // Salviamo il file nello storage e recuperiamo il path
-        $path = Storage::put("posts", $data["cover_img"]);
+        // $path = Storage::put("posts", $data["cover_img"]);
 
         // carico il file solo se ne ricevo uno
         if (key_exists("cover_img", $data)) {
             // salvo in una variabile temporanea il percorso del nuovo file
             $path = Storage::put("posts", $data["cover_img"]);
-            // Dopo aver caricato la nuova immagine, prima di aggiornare il db,
-            // cancelliamo dallo storage il vecchio file.
-            Storage::delete($data->cover_img);
         }
 
-        $project = new Project();
-        $project->name = $data['name'];
-        $project->description = $data['description'];
+        $project = Project::create($data);
         $project->cover_img = $path;
-        $project->github_link = $data['github_link'];
         $project->save();
 
         return redirect()->route('projects.show', $project->id);
@@ -117,6 +111,19 @@ class ProjectController extends Controller
 
         // $project = Project::findOrFail($id);
         $project->update($data);
+
+        // carico il file solo se ne ricevo uno
+        if (key_exists("cover_img", $data)) {
+            // salvo in una variabile temporanea il percorso del nuovo file
+            $path = Storage::put("posts", $data["cover_img"]);
+            // Dopo aver caricato la nuova immagine, prima di aggiornare il db,
+            // cancelliamo dallo storage il vecchio file.
+            Storage::delete($project->cover_img);
+
+            $project->cover_img = $path;
+        }
+
+        $project->save();
 
         return redirect()->route('projects.show', $project->id);
     }

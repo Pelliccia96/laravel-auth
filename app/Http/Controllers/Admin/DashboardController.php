@@ -15,10 +15,10 @@ class DashboardController extends Controller
         // $user = Auth::user();
         // $users = User::all();
 
-        $users = Project::all();
+        $users = User::all();
 
-        return view("dashboard", [
-            "users" => $users,
-        ]);
+        $projects = Project::all();
+
+        return view("dashboard", compact("users", "projects"));
     }
 }
